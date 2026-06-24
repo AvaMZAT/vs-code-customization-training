@@ -1,0 +1,16 @@
+@host = http://localhost:5099
+
+### Get all products
+GET {{host}}/products
+
+### Get one product (exists)
+GET {{host}}/products/1
+
+### Get one product that does not exist -> 404
+GET {{host}}/products/999
+
+### Create a product
+POST {{host}}/products
+Content-Type: application/json
+
+{ "name": "Deluxe Widget", "price": 29.99 }
