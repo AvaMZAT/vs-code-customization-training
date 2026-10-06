@@ -11,7 +11,7 @@ demonstrate **GitHub Copilot customization**, so keep changes small and conventi
 ## Conventions (non-negotiable)
 - Target .NET 8. File-scoped namespaces. Nullable enabled — never use `!` without a reason comment.
 - Public async methods end in `Async` and return `Task`/`Task<T>`; no `async void`.
-- Inject dependencies via the constructor. Use an injected `TimeProvider`, never `DateTime.Now`.
+- Inject dependencies via the constructor. Use an injected `TimeProvider`; avoid system clock APIs such as `DateTime.Now`, `DateTime.UtcNow`, and `DateTimeOffset.Now`.
 - Endpoints stay thin: logic lives in a service, handlers return `Results.*` with correct status codes.
 - Tests use xUnit, Arrange–Act–Assert, named `Method_state_expected`.
 

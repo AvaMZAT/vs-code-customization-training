@@ -23,8 +23,9 @@ the per-topic budget from the deck.
 
 ## Slide 6 — AGENTS.md (DEMO light, ~1 min)
 - Show `AGENTS.md`. In Chat: `How do I build, run, and test this project?`
-- It answers from AGENTS.md (commands + port) — portable, primary, no file opened.
-- One line: both `copilot-instructions.md` and `AGENTS.md` apply; AGENTS.md is the portable one.
+- Point out that the project guidance includes the commands and port; applicable instruction
+  sources are additive, not a hierarchy where `AGENTS.md` overrides the others.
+- One line: `AGENTS.md` is a portable format supported by compatible agents.
 
 ## Slide 8 — Custom Agents (DEMO, ~4 min)
 - Open `.github/agents/csharp-reviewer.agent.md`; walk the frontmatter (tools = read-only, model).
@@ -35,16 +36,18 @@ the per-topic budget from the deck.
 
 ## Slide 10 — Skills (DEMO, ~4 min)
 - Show `.github/skills/changelog-entry/` (SKILL.md + template.md).
-- Prompt: `Add a changelog entry for the new PATCH endpoint.`
-- The skill activates (shows in chat), edits `CHANGELOG.md` under `[Unreleased]` per the template.
-- Point out: it loaded *on demand* because the task matched — not always-on.
+- Invoke `/changelog-entry` with: `Add a changelog entry for the new PATCH endpoint.`
+- The skill edits `CHANGELOG.md` under `[Unreleased]` per the template. Copilot may also select
+  a relevant skill automatically, but automatic activation is not guaranteed.
+- Point out: skills can load on demand; they are not always-on instructions.
 
 ## Slide 13 — Links (no demo)
 - Carried-over + refreshed links; ★ = new suggestions. Mirrored in the handout.
 
 ## Slide 14 — Prompt Files (BACKUP, ~3 min, only if time/asked)
-- Type `/new-endpoint` in chat, give a resource name (e.g. "categories").
+- With the Local Agent selected, type `/new-endpoint` and give a resource name (e.g. "categories").
 - It scaffolds an endpoint + test + changelog line, all to our conventions.
+- Prompt files are deprecated and not loaded in Agent Host sessions.
 
 ## Reset between runs
 ```bash
