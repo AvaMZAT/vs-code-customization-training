@@ -40,17 +40,17 @@ In VS Code, press **F5** ("Run CatalogApi"), then open `src/CatalogApi/CatalogAp
 
 | File | Type | What it does |
 |------|------|--------------|
-| `AGENTS.md` | Always-on, **portable** | Project brief + build/test commands + top conventions. Cross-tool, treated as primary. |
+| `AGENTS.md` | **Portable instructions** | Project brief, commands, and conventions; additive to other applicable instructions. |
 | `.github/copilot-instructions.md` | Always-on, **VS Code-native** | Thin response preferences; points at the other two. |
 | `.github/instructions/csharp.instructions.md` | **Path-specific** (`applyTo: **/*.cs`) | The detailed C# coding standards — only load for C# files. |
 | `.github/agents/csharp-reviewer.agent.md` | **Custom agent** | A read-only "C# Reviewer" persona with scoped tools. |
 | `.github/skills/changelog-entry/SKILL.md` | **Skill** | On-demand: writes a `CHANGELOG.md` entry in our style. |
-| `.github/prompts/new-endpoint.prompt.md` | **Prompt file** (backup) | A `/new-endpoint` slash command that scaffolds an endpoint our way. |
+| `.github/prompts/new-endpoint.prompt.md` | **Prompt file** (Local Agent backup) | `/new-endpoint` for the Local Agent; deprecated and not loaded in Agent Host sessions. |
 
 The team conventions encoded across these: .NET 8, file-scoped namespaces, nullable enabled (no
-`!` without a reason), async methods suffixed `Async`, **injected `TimeProvider` (never
-`DateTime.Now`)**, constructor injection, `record` DTOs, thin handlers, and xUnit AAA tests named
-`Method_state_expected`.
+`!` without a reason), async methods suffixed `Async`, **injected `TimeProvider` (not system
+clock APIs such as `DateTime.Now`, `DateTime.UtcNow`, or `DateTimeOffset.Now`)**, constructor
+injection, `record` DTOs, thin handlers, and xUnit AAA tests named `Method_state_expected`.
 
 ## 4. Try it yourself
 
@@ -62,8 +62,9 @@ Do these in order — it mirrors the session.
   response's **References** to confirm `csharp.instructions.md` was applied.
 
 **AGENTS.md**
-- Ask: ``How do I build, run, and test this project?`` It should answer from `AGENTS.md`
-  (including the port and the `dotnet` commands) without you opening any file.
+- Ask: ``How do I build, run, and test this project?`` The project guidance includes the port
+  and `dotnet` commands. `AGENTS.md` and applicable Copilot instructions are additive; neither
+  is a general override for the other.
 
 **Custom Agent**
 - Pick **C# Reviewer** from the agent dropdown, then ask: ``Review ProductService.``
@@ -71,13 +72,14 @@ Do these in order — it mirrors the session.
   Notice it **suggests** a fix but can't edit — it only has read-only tools.
 
 **Skill**
-- Make a small change (or use the one above), then ask:
-  ``Add a changelog entry for this change.`` The **changelog-entry** skill activates and updates
-  `CHANGELOG.md` under `[Unreleased]`, following `template.md`.
+- Make a small change (or use the one above), then invoke `/changelog-entry` with a request to
+  record it. Skills can also be selected automatically when relevant, but activation is not
+  guaranteed. The skill updates `CHANGELOG.md` under `[Unreleased]`, following `template.md`.
 
-**Prompt File (backup)**
-- Type ``/new-endpoint`` in chat and give it a resource name. It scaffolds an endpoint, a test,
-  and a changelog line — all to our conventions.
+**Prompt File (Local Agent backup)**
+- With the Local Agent selected, type ``/new-endpoint`` and give it a resource name. It scaffolds
+  an endpoint, a test, and a changelog line — all to our conventions. Prompt files are deprecated
+  and are not loaded in Agent Host sessions.
 
 ## 5. The intentional smell
 
